@@ -1,0 +1,86 @@
+   //ATM Simulator
+#include <stdio.h>
+void disp();
+float deposit(float bal);
+float withdraw(float bal);
+void check(float bal);
+int main()
+{
+    float bal = 0.0;
+    int choice;
+    do 
+    {
+        disp();
+        printf("Enter your choice (1-4): ");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+            case 1:
+                bal = deposit(bal);
+                break;
+            case 2:
+                bal = withdraw(bal);
+                break;
+            case 3:
+                check(bal);
+                break;
+            case 4:
+                printf("Thank you for using the ATM. Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice. Please enter a valid option.\n");
+        }
+
+    } 
+    while (choice != 4);
+    return 0;
+}
+void disp()
+{
+    printf("\nATM SIMULATOR\n");
+    printf("1. Deposit\n");
+    printf("2. Withdraw\n");
+    printf("3. Check Balance\n");
+    printf("4. Exit\n");
+}
+float deposit(float bal)
+{
+    float amt;
+    printf("Enter the deposit amount: $");
+    scanf("%f", &amt);
+    if (amt > 0) 
+    {
+        bal += amt;
+        printf("Deposit successful. New balance: $%.2f\n", bal);
+    } 
+    else
+    {
+        printf("Invalid amount. Please enter a positive value.\n");
+    }
+
+    return bal;
+}
+
+float withdraw(float bal)
+{
+    float amt;
+    printf("Enter the withdrawal amount: $");
+    scanf("%f", &amt);
+    if (amt > 0 && amt <= bal)
+    {
+        bal -= amt;
+        printf("Withdrawal successful. New balance: $%.2f\n", bal);
+    }
+    else if (amt <= 0) {
+        printf("Invalid amount. Please enter a positive value.\n");
+    }
+    else
+    {
+        printf("Insufficient funds. Withdrawal canceled.\n");
+    }
+    return bal;
+}
+void check(float bal)
+{
+    printf("Your current balance: $%.2f\n", bal);
+}
