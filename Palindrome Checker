@@ -1,0 +1,22 @@
+//Palindrome in c language                  
+#include <string.h>
+int main() {
+    char num[20];
+    int index, len;
+    int flag = 1;
+    printf("Enter a number: ");
+    scanf("%s", num);
+    len = strlen(num);
+    for (index = 0; index < len / 2; index++) {
+        if (num[index] != num[len - index - 1]) {
+            flag = 0;
+            break;
+        }
+    }
+    if (flag) {
+        printf("%s is a palindrome", num);
+    } else {
+        printf("%s is not a palindrome", num);
+    }
+    return 0;
+}
