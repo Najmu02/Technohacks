@@ -1,0 +1,110 @@
+//File Management System   
+#include <stdio.h>
+#include <stdlib.h>
+void create(char *filename);
+void del(char *filename);
+void copy(char *source, char *destination);
+void move(char *source, char *destination);
+int main() 
+{
+    int choice;
+    char filename[100], source[100], destination[100];
+    do
+    {
+        printf("\n***** File Management System *****\n");
+        printf("1. Create File\n");
+        printf("2. Delete File\n");
+        printf("3. Copy File\n");
+        printf("4. Move File\n");
+        printf("5. Exit\n");
+        printf("Enter your choice (1-5): ");
+        scanf("%d", &choice);
+        switch (choice) 
+        {
+            case 1:
+                printf("Enter the filename to create: ");
+                scanf("%s", filename);
+                create(filename);
+                break;
+            case 2:
+                printf("Enter the filename to delete: ");
+                scanf("%s", filename);
+                del(filename);
+                break;
+            case 3:
+                printf("Enter the source filename: ");
+                scanf("%s", source);
+                printf("Enter the destination filename: ");
+                scanf("%s", destination);
+                copy(source, destination);
+                break;
+            case 4:
+                printf("Enter the source filename: ");
+                scanf("%s", source);
+                printf("Enter the destination filename: ");
+                scanf("%s", destination);
+                move(source, destination);
+                break;
+            case 5:
+                printf("Exiting File Management System. Goodbye!\n");
+                break;
+            default:
+                printf("Invalid choice. Please enter a valid option.\n");
+        }
+    } 
+    while (choice != 5);
+    return 0;
+}
+void create(char *filename)
+{
+    FILE *file = fopen(filename, "w");
+    if (file != NULL)
+    {
+        fclose(file);
+        printf("File '%s' created successfully.\n", filename);
+    } 
+    else 
+    {
+        printf("Error creating file '%s'.\n", filename);
+    }
+}
+void del(char *filename)
+{
+    if (remove(filename) == 0) 
+    {
+        printf("File '%s' deleted successfully.\n", filename);
+    }
+    else {
+        printf("Error deleting file '%s'.\n", filename);
+    }
+}
+void copy(char *source, char *destination) 
+{
+    FILE *srcFile, *destFile;
+    char ch;
+    srcFile = fopen(source, "rb");
+    if (srcFile == NULL)
+    {
+        printf("Error opening source file '%s'.\n", source);
+        return;
+    }
+    destFile = fopen(destination, "wb");
+    if (destFile == NULL) {
+        printf("Error opening destination file '%s'.\n", destination);
+        fclose(srcFile);
+        return;
+    }
+    while ((ch = fgetc(srcFile)) != EOF)
+    {
+        fputc(ch, destFile);
+    }
+    fclose(srcFile);
+    fclose(destFile);
+    printf("File '%s' copied to '%s' successfully.\n", source, destination);
+}
+void move(char *source, char *destination) 
+{
+    copy(source, destination);
+    del(source);
+    printf("File '%s' moved to '%s' successfully.\n", source, destination);
+}
