@@ -1,0 +1,34 @@
+#include <stdio.h>
+void decimaltobinary(int a) {
+    if (a == 0) {
+        printf("Binary: 0\n");
+        return;
+    }
+    int binary[32];
+    int i = 0;
+    while (a > 0) {
+        binary[i] = a % 2;
+        a = a / 2;
+        i++;
+    }
+    printf("Binary: ");
+    for (int j = i - 1; j >= 0; j--) {
+        printf("%d", binary[j]);
+    }
+    printf("\n");
+}
+void decimaltooctal(int a) {
+    printf("Octal: %o\n", a);
+}
+void decimaltohexadecimal(int a) {
+    printf("Hexadecimal: %X\n", a);
+}
+int main() {
+    int decimalNum;
+    printf("Enter a decimal number: ");
+    scanf("%d", &decimalNum);
+    decimaltobinary(decimalNum);
+    decimaltooctal(decimalNum);
+    decimaltohexadecimal(decimalNum);
+    return 0;
+}
